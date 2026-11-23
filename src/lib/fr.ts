@@ -1,0 +1,78 @@
+export const fr = {
+  brand: 'CreativeScroll', workspace: 'ESPACE CRÉATEUR', moderation: 'ESPACE MODÉRATION',
+  contents: 'Mes contenus', create: 'Créer un contenu', pending: 'À modérer', reports: 'Signalements', history: 'Historique',
+  logout: 'Se déconnecter', login: 'Se connecter', signup: 'Créer mon compte', name: 'Nom complet', email: 'Adresse email', password: 'Mot de passe', confirmPassword: 'Confirmer le mot de passe',
+  welcome: 'Bienvenue dans votre espace créatif.', authSubtitle: 'Un endroit pour donner vie à vos idées et partager vos connaissances.',
+  loginTitle: 'Heureux de vous retrouver', signupTitle: 'Votre prochaine idée commence ici',
+  noAccount: 'Pas encore de compte ?', hasAccount: 'Déjà un compte ?', authFoot: 'Un espace de création. Des contenus qui comptent.',
+  all: 'Tous les contenus', search: 'Rechercher un contenu...', recent: 'Plus récents', oldest: 'Plus anciens',
+  title: 'Titre', description: 'Description', category: 'Catégorie', type: 'Type de contenu', chooseCategory: 'Choisir une catégorie',
+  titlePlaceholder: 'Donnez un titre à votre idée', descriptionPlaceholder: 'De quoi parle votre contenu ?',
+  submit: 'Soumettre à la modération', cancel: 'Annuler', back: 'Retour aux contenus', edit: 'Modifier et re-soumettre',
+  newSubtitle: "Une idée, un format, et c\u2019est parti.", details: 'Détails du contenu', media: 'Fichier média', upload: 'Choisir un fichier', uploadHelp: 'Image, vidéo ou PDF · 20 Mo maximum', uploading: 'Envoi du fichier',
+  instructions: 'Instructions', link: 'Lien du contenu', text: 'Texte du document', question: 'Question', addQuestion: 'Ajouter une question', options: 'Réponses (sélectionnez la bonne)',
+  submitted: 'Votre contenu a été envoyé à la modération.', saved: 'Votre contenu a été re-soumis.',
+  empty: 'Aucun contenu pour le moment', emptyFiltered: 'Aucun contenu ne correspond à votre recherche', emptySubtitle: 'Votre prochaine création trouvera sa place ici.',
+  error: 'Impossible de charger les données. Veuillez réessayer.', retry: 'Réessayer', loading: 'Chargement\u2026',
+  required: 'Complétez les champs obligatoires.', mismatch: 'Les mots de passe ne correspondent pas.', weak: 'Le mot de passe doit contenir au moins 8 caractères.', invalid: 'Email ou mot de passe incorrect.', used: 'Cette adresse email est déjà utilisée.', authError: 'La connexion a échoué. Veuillez réessayer.',
+  forgot: 'Mot de passe oublié ou première connexion ?', confirmEmail: 'Vérifiez votre boîte mail pour confirmer votre adresse, puis connectez-vous.',
+  forgotTitle: 'Choisissez un nouveau mot de passe', forgotSubtitle: 'Première connexion après notre changement de plateforme, ou mot de passe oublié ? Saisissez votre email : nous vous envoyons un lien pour vérifier votre adresse et définir un nouveau mot de passe.', sendLink: 'Envoyer le lien', linkSent: "Si un compte existe pour cette adresse, un email vient de vous être envoyé. Ouvrez le lien qu\u2019il contient pour continuer.", backToLogin: 'Retour à la connexion',
+  resetTitle: 'Définissez votre mot de passe', resetSubtitle: 'Votre adresse est vérifiée. Choisissez un nouveau mot de passe pour accéder à votre espace.', newPassword: 'Nouveau mot de passe', savePassword: 'Enregistrer et continuer', resetInvalid: 'Ce lien est invalide ou a expiré. Demandez-en un nouveau.', resetChecking: 'Vérification du lien\u2026',
+  accept: 'Accepter', reject: 'Refuser', remove: 'Retirer', restore: 'Rétablir / Ignorer', reason: 'Motif de la décision', rejection: 'Motif du refus', reasonRequired: 'Un motif est obligatoire pour refuser ce contenu.', confirm: 'Confirmer la décision', decisionSaved: 'Décision enregistrée.',
+  reviewSubtitle: 'Chaque contenu mérite un regard attentif.', reportSubtitle: 'Examinez les contenus signalés par la communauté.', historySubtitle: 'Retrouvez toutes vos décisions de modération.',
+  author: 'Auteur', published: 'Créé le', noReports: 'Aucun signalement ouvert', noHistory: 'Aucune décision pour le moment',
+  hello: 'Bonjour', creatorSubtitle: 'Vos idées prennent vie, un contenu à la fois.', total: 'Contenus créés', pendingStat: 'En attente', validatedStat: 'Validés', rejectedStat: 'À retravailler',
+  studioTitle: 'Et si votre prochaine idée\nchangeait quelque chose ?', studioSubtitle: 'Un quiz, une histoire, un défi : à vous de créer.', studioCta: 'Donner vie à une idée',
+  count: 'contenus', reportCount: 'signalement(s)', review: 'Examiner le contenu', view: 'Voir le contenu', account: 'Créateur de contenu', moderatorAccount: 'Modérateur',
+  quizName: 'Nom du quiz', puzzleName: 'Nom du puzzle', gameName: 'Nom du mini-jeu', fileTooLarge: 'Le fichier dépasse la limite de 20 Mo.', invalidFile: 'Choisissez une image, une vidéo ou un PDF.', invalidUrl: 'Utilisez un lien https:// valide.',
+
+  home: 'Accueil', scroll: 'Scroll', newContent: 'Nouveau contenu', settings: 'Réglages', profileSettings: 'Profil et compte', darkTheme: 'Thème sombre', quickMenu: 'Menu du compte',
+  notifications: 'Notifications', markAllRead: 'Tout marquer comme lu', newBadge: 'Nouveau', seeAll: 'Voir tout', recentContents: 'Derniers contenus',
+  notifEmptyTitle: 'Tout est calme par ici', notifEmptySubtitle: "Les décisions de modération et les signalements sur vos contenus apparaîtront ici dès qu\u2019il se passe quelque chose.",
+  notifDecision: { ACCEPTED: 'a été validé', REJECTED: 'a été refusé', REMOVED: 'a été retiré', RESTORED: 'a été rétabli' },
+  notifReport: 'a été signalé', notifReportHelp: 'Un modérateur examine ce signalement.',
+  todoTitle: 'À retravailler', todoSubtitle: 'Ces contenus ont été refusés : corrigez-les et re-soumettez-les.',
+  homeEmptyTitle: 'Votre première idée vous attend', homeEmptySubtitle: 'Créez un quiz, un puzzle, un mini-jeu ou une vidéo : il apparaîtra ici après envoi.',
+  scrollTitle: 'Le fil Scroll arrive bientôt', scrollSubtitle: 'Faites défiler les quiz, puzzles, mini-jeux et vidéos validés par la communauté. Cette page est en cours de construction.', scrollBadge: 'À venir',
+  filter: 'Filtrer', sortBy: 'Trier', statusLabel: 'Statut', clearFilters: 'Effacer', closeSearch: 'Fermer la recherche', openSearch: 'Rechercher',
+  justNow: "à l\u2019instant", confirmTitle: 'Vérifiez votre boîte mail', confirmSent: 'Nous avons envoyé un lien de confirmation à', confirmNext: 'Ouvrez-le pour activer votre compte, puis connectez-vous.', showPassword: 'Afficher le mot de passe', hidePassword: 'Masquer le mot de passe',
+  statuses: { PENDING: 'En attente', VALIDATED: 'Validé', REJECTED: 'Refusé', REMOVED: 'Retiré' },
+  types: { MINI_GAME: 'Mini-jeu', SHORT_DOC: 'Document', QUIZ: 'Quiz', PUZZLE: 'Puzzle', VIDEO: 'Vidéo' },
+  decisions: { ACCEPTED: 'Accepté', REJECTED: 'Refusé', REMOVED: 'Retiré', RESTORED: 'Rétabli / Ignoré' },
+
+  // ── US13 : signalement par les créateurs ───────────────────────────────────
+  reportBtn: 'Signaler ce contenu', reportReasonLabel: 'Motif du signalement', reportSuccess: "Signalement envoyé. Un modérateur l\u2019examinera.",
+
+  // ── US09 : Fil Scroll ──────────────────────────────────────────────────────
+  scrollFeedTitle: 'Scroll', scrollFeedSubtitle: 'Découvrez les contenus validés par la communauté.',
+  scrollEmpty: 'Aucun contenu disponible pour le moment', scrollEmptySubtitle: 'Les contenus validés par les modérateurs apparaîtront ici.',
+  playActivity: 'Jouer', openContent: 'Ouvrir', scrollFilterAll: 'Tout',
+
+  // ── US10 : Lecteur d'activités ────────────────────────────────────────────
+  startActivity: "Commencer l\u2019activité", abandonActivity: 'Abandonner', nextQuestion: 'Question suivante',
+  scoreResult: 'Votre score', correctAnswer: 'Bonne réponse !', wrongAnswer: 'Mauvaise réponse', quizFinished: 'Quiz terminé !',
+  quizScore: (correct: number, total: number) => `${correct} / ${total} bonne${correct > 1 ? 's' : ''} réponse${correct > 1 ? 's' : ''}`,
+  playAgain: 'Rejouer', activityInstructions: "Instructions de l\u2019activité",
+  puzzleStart: 'Démarrer le puzzle', puzzleAbandon: 'Abandonner le puzzle', puzzleComplete: 'Puzzle terminé !',
+  gameStart: 'Lancer le jeu', gameAbandon: 'Quitter le jeu', gameExternal: 'Ouvrir dans un nouvel onglet',
+
+  // ── US11 : Défis de bien-être ─────────────────────────────────────────────
+  challenges: 'Défis', challengesSubtitle: 'Relevez des défis quotidiens pour adopter des habitudes plus saines.',
+  challengesDailyTitle: 'Défis du jour', challengesPoints: 'points', challengesToday: "Aujourd\u2019hui",
+  challengesDone: 'Défi accompli !', challengesReset: 'Les défis se renouvellent chaque jour.',
+  challengesScore: 'Score du jour', challengesStreak: 'Jours consécutifs', challengesCompleted: 'Accomplis',
+  challengesEmpty: 'Revenez demain pour de nouveaux défis !',
+  challengesBadgeTitle: 'Récompenses débloquées',
+
+  // ── US12 : Progression ────────────────────────────────────────────────────
+  progressTitle: 'Ma progression', progressLevel: 'Niveau', progressNextLevel: 'Prochain palier',
+  progressPoints: 'points accumulés', progressBadges: 'Badges obtenus',
+  progressStreak: 'Série en cours', progressStreakDays: 'jours',
+  badges: {
+    first: { label: 'Premier pas', desc: 'Premier contenu créé' },
+    five: { label: 'En route !', desc: '5 contenus créés' },
+    validated: { label: 'Validé \u2713', desc: 'Premier contenu validé' },
+    challenger: { label: 'Challenger', desc: 'Premier défi accompli' },
+    streak3: { label: 'En feu \uD83D\uDD25', desc: '3 jours de suite de défis' },
+  },
+} as const;
