@@ -10,11 +10,11 @@ import { ProgressPage } from '@/components/progress-page';
 import { WorkspaceError } from '@/components/workspace-page';
 import { ListSkeleton } from '@/components/skeletons';
 import { workspaceQuery } from '@/lib/queries';
-import { requireRole } from '@/lib/role-guard';
+import { requireAuth } from '@/lib/role-guard';
 
 export const Route = createFileRoute('/_authenticated/progress')({
-  // Réservée aux créateurs uniquement
-  beforeLoad: () => requireRole('creator'),
+  // Accessible à tous les utilisateurs authentifiés (viewer + créateur)
+  beforeLoad: () => requireAuth(),
   // Pré-chargement des données (déjà en cache via layout, coût nul)
   loader: ({ context }) => context.queryClient.ensureQueryData(workspaceQuery()),
   head: () => ({

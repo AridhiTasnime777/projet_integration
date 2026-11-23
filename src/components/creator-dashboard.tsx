@@ -45,6 +45,7 @@ export function CreatorDashboard() {
   const own = data.contents.filter(c => c.author_id === data.user.id);
   const rejected = own.filter(c => c.status === 'REJECTED');
   const first = data.name.split(/\s+/)[0] || data.name;
+  const isViewer = data.isViewer;
   const stats = [
     { label: fr.total, value: own.length, icon: LayoutGrid },
     { label: fr.pendingStat, value: own.filter(c => c.status === 'PENDING').length, icon: Clock },
@@ -61,7 +62,7 @@ export function CreatorDashboard() {
         <section className="dash-panel">
           <header className="panel-head"><h2><LayoutGrid size={17}/>{fr.recentContents}</h2><Link to="/contents" className="text-action">{fr.seeAll}<ArrowUpRight size={14}/></Link></header>
           {own.length ? <ul className="mini-list">{own.slice(0, 3).map(c => <li key={c.id}><Link to="/content/$id" params={{ id: c.id }} className="mini-item"><span className="mini-thumb"><ContentCover content={c}/></span><span className="mini-text"><strong>{c.title}</strong><small>{fr.types[c.content_type]} · {c.categories?.name}</small></span><StatusBadge status={c.status}/></Link></li>)}</ul>
-            : <div className="mini-empty"><p>{fr.homeEmptySubtitle}</p><Button asChild size="sm"><Link to="/contents" search={{ nouveau: true }}><Plus size={15}/>{fr.newContent}</Link></Button></div>}
+            : <div className="mini-empty"><p>{fr.homeEmptySubtitle}</p>{!isViewer && (<Button asChild size="sm"><Link to="/contents" search={{ nouveau: true }}><Plus size={15}/>{fr.newContent}</Link></Button>)}</div>}
         </section>
         <Link to="/scroll" className="scroll-teaser"><span className="teaser-icon"><Play size={18}/></span><span><strong>{fr.scroll}</strong><small>{fr.scrollTitle}</small></span><span className="soon-chip">{fr.scrollBadge}</span></Link>
       </div>

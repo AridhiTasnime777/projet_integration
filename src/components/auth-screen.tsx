@@ -21,7 +21,7 @@
 
 import { useState, type CSSProperties, type FormEvent } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { ArrowRight, Eye, EyeOff, LockKeyhole, Sparkles, Check, MailCheck } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, LockKeyhole, Sparkles, Check, MailCheck, PenLine, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Brand } from './workspace-shell';
 import { Spinner } from './spinner';
@@ -56,6 +56,8 @@ export function AuthScreen() {
   const [error, setError] = useState('');          // Message d'erreur affiché sous le formulaire
   const [phase, setPhase] = useState<Phase>('form');
   const [sentTo, setSentTo] = useState('');        // Email auquel le lien de confirmation a été envoyé
+  // Rôle choisi à l'inscription : 'creator' (mode dev) ou 'viewer' (utilisateur normal)
+  const [intendedRole, setIntendedRole] = useState<'creator' | 'viewer'>('viewer');
   const navigate = useNavigate();
 
   /**
@@ -95,7 +97,10 @@ export function AuthScreen() {
             email,
             password,
             options: {
-              data: { display_name: String(fields.get('name')) },
+              data: {
+                display_name: String(fields.get('name')),
+                intended_role: intendedRole,  // 'creator' | 'viewer'
+              },
               emailRedirectTo: window.location.origin,
             },
           })
@@ -124,17 +129,24 @@ export function AuthScreen() {
       const { data: user } = await supabase.auth.getUser();
       if (!user.user) throw new Error(fr.authError);
 
-      // Lecture de la table user_roles pour déterminer si modérateur
-      // (les rôles sont gérés uniquement via la table public.user_roles + fonction has_role)
+      // Lecture de la table user_roles pour déterminer le rôle
       const roles = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', user.user.id);
       if (roles.error) throw new Error(fr.authError);
 
-      const to = roles.data.some(x => x.role === 'moderator')
+      const isModerator = roles.data.some(x => x.role === 'moderator');
+      const isCreatorInDb = roles.data.some(x => x.role === 'creator');
+      const userIntendedRole = user.user.user_metadata?.['intended_role'];
+      // Viewer = pas de rôle creator/moderator en DB ET intended_role !== 'creator'
+      const isViewerUser = !isModerator && !isCreatorInDb && userIntendedRole !== 'creator';
+
+      const to = isModerator
         ? '/moderation' as const
-        : '/creator' as const;
+        : isViewerUser
+          ? '/scroll' as const
+          : '/creator' as const;
 
       leaveThen(() => void navigate({ to }));
     } catch (err) {
@@ -187,6 +199,40 @@ export function AuthScreen() {
                 <label className="stagger-item" style={at(i++)}>
                   {fr.name}<input name="name" required autoComplete="name" placeholder="Alex Morgan"/>
                 </label>
+              )}
+
+              {/* Sélecteur de rôle : visible uniquement en mode inscription */}
+              {signup && (
+                <div className="role-picker stagger-item" style={at(i++)}>
+                  <p className="role-picker-label">{fr.roleChoice}</p>
+                  <div className="role-cards">
+                    {/* Carte Utilisateur normal */}
+                    <button
+                      type="button"
+                      id="role-viewer"
+                      className={`role-card ${intendedRole === 'viewer' ? 'selected' : ''}`}
+                      onClick={() => setIntendedRole('viewer')}
+                    >
+                      <span className="role-card-icon"><User size={22}/></span>
+                      <span className="role-card-title">{fr.roleViewer}</span>
+                      <span className="role-card-desc">{fr.roleViewerDesc}</span>
+                      {intendedRole === 'viewer' && <span className="role-card-check"><Check size={14}/></span>}
+                    </button>
+
+                    {/* Carte Créateur (mode développeur) */}
+                    <button
+                      type="button"
+                      id="role-creator"
+                      className={`role-card ${intendedRole === 'creator' ? 'selected' : ''}`}
+                      onClick={() => setIntendedRole('creator')}
+                    >
+                      <span className="role-card-icon creator"><PenLine size={22}/></span>
+                      <span className="role-card-title">{fr.roleCreator}</span>
+                      <span className="role-card-desc">{fr.roleCreatorDesc}</span>
+                      {intendedRole === 'creator' && <span className="role-card-check"><Check size={14}/></span>}
+                    </button>
+                  </div>
+                </div>
               )}
 
               <label className="stagger-item" style={at(i++)}>

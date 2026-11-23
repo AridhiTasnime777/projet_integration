@@ -21,5 +21,5 @@ export const Route = createFileRoute('/_authenticated')({
 
 function AuthenticatedLayout() {
   const { data } = useSuspenseQuery(workspaceQuery());
-  return <WorkspaceShell moderator={data.moderator} name={data.name} email={data.user.email ?? ''}><Outlet /></WorkspaceShell>;
+  return <WorkspaceShell moderator={data.moderator} isViewer={data.isViewer} name={data.name} email={data.user.email ?? ''}><Outlet /></WorkspaceShell>;
 }

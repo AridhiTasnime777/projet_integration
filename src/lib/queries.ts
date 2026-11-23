@@ -15,12 +15,18 @@ export const workspaceQuery = () => queryOptions({
     if (!user) throw new Error(fr.authError);
     const ownProfile = await supabase.from('profiles').select('display_name').eq('id', user.id).single();
     const moderator = roles.data.some(r => r.role === 'moderator');
+    // Un "viewer" est un utilisateur dont le intended_role dans les metadata est 'viewer'
+    // et qui n'a pas de rôle créateur/modérateur explicite dans user_roles
+    const hasExplicitCreator = roles.data.some(r => r.role === 'creator');
+    // Viewer = pas de rôle creator/moderator en DB ET intended_role !== 'creator'
+    const isViewer = !moderator && !hasExplicitCreator
+      && user.user_metadata?.['intended_role'] !== 'creator';
     const [reports, decisions] = moderator ? await Promise.all([
       supabase.from('reports').select('*').eq('status', 'OPEN'),
       supabase.from('moderation_decisions').select('*, contents(title)').order('created_at', { ascending: false }),
     ]) : [{ data: [], error: null }, { data: [], error: null }];
     if (reports.error || decisions.error) throw new Error(fr.error);
-    return { contents: contents.data, categories: categories.data, user, name: ownProfile.data?.display_name || fr.account, moderator, reports: reports.data || [], decisions: decisions.data || [] };
+    return { contents: contents.data, categories: categories.data, user, name: ownProfile.data?.display_name || fr.account, moderator, isViewer, reports: reports.data || [], decisions: decisions.data || [] };
   },
 });
 export type Content = import('@/integrations/supabase/types').Database['public']['Tables']['contents']['Row'] & { categories: { name: string } | null; author: { display_name: string } | null };

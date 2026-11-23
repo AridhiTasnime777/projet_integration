@@ -4,20 +4,24 @@ export type Kind = Database['public']['Enums']['content_kind'];
 export const MAX_FILE_SIZE = 20 * 1024 * 1024;
 export const canEdit = (status: Status) => status === 'PENDING' || status === 'REJECTED';
 export const canDeleteUnreviewed = (status: Status, reviewedAt: string | null) => status === 'PENDING' && reviewedAt === null;
+// Un viewer ne peut jamais créer de contenu
+export const canCreate = (role: 'creator' | 'moderator' | 'viewer') => role !== 'viewer';
 // US13 : les modérateurs signalent les contenus VALIDATED (sans restriction sur l'auteur).
 // Les créateurs peuvent aussi signaler un contenu VALIDATED qui n'est pas le leur.
 export const canReport = (
-  role: 'creator' | 'moderator',
+  role: 'creator' | 'moderator' | 'viewer',
   status: Status,
   authorId?: string | null,
   userId?: string | null,
 ) => {
   if (status !== 'VALIDATED') return false;
   if (role === 'moderator') return true;
-  // Créateur : peut signaler seulement si ce n'est pas son propre contenu
-  return role === 'creator' && authorId !== userId;
+  // Créateur et viewer : peuvent signaler uniquement si ce n'est pas leur propre contenu
+  return (role === 'creator' || role === 'viewer') && authorId !== userId;
 };
-export function canTransition(role: 'creator' | 'moderator', from: Status, to: Status) {
+export function canTransition(role: 'creator' | 'moderator' | 'viewer', from: Status, to: Status) {
+  // Viewer : aucune transition possible
+  if (role === 'viewer') return false;
   if (role === 'creator') return canEdit(from) && to === 'PENDING';
   return (from === 'PENDING' && (to === 'VALIDATED' || to === 'REJECTED')) || (from === 'VALIDATED' && to === 'REMOVED') || (from === 'REMOVED' && to === 'VALIDATED');
 }

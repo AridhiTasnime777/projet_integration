@@ -193,6 +193,42 @@ svg { flex-shrink:0; }
 .empty-state { padding:48px 20px; text-align:center; display:grid; justify-items:center; gap:12px; color:var(--muted-foreground); }.empty-state h2 { color:var(--foreground); }.empty-state p { line-height:1.6; }.empty-state svg { color:var(--success); }
 .auth-page { min-height:100dvh; background:var(--card); display:flex; flex-direction:column; }.auth-header { height:80px; padding:0 7%; display:flex; align-items:center; justify-content:space-between; }.auth-tag { display:flex; gap:8px; align-items:center; color:var(--muted-foreground); font-size:12px; }.auth-main { display:grid; grid-template-columns:1fr 1fr; max-width:1100px; width:86%; margin:20px auto 48px; gap:70px; align-items:center; flex:1; }.auth-form-area { padding:24px 0; max-width:420px; }.auth-eyebrow { font-size:12px; color:var(--muted-foreground); margin-bottom:20px; }.auth-form-area h1 { font-size:36px; line-height:1.2; }.auth-subtitle { font-size:14px; color:var(--muted-foreground); line-height:1.7; margin:16px 0 26px; }.auth-form { display:grid; gap:18px; }.auth-form>button { justify-content:space-between; }.password-input { position:relative; }.password-input input { padding-right:48px; }.password-input button { position:absolute; right:0; top:0; color:var(--muted-foreground); }.auth-switch { display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--muted-foreground); margin:14px 0; }.auth-switch button { color:var(--success); font-size:13px; padding:0 8px; }.auth-trust { display:flex; align-items:center; justify-content:center; gap:7px; font-size:11px; color:var(--muted-foreground); }.auth-visual { position:relative; min-height:550px; height:100%; max-height:700px; border-radius:8px; overflow:hidden; background:var(--accent); }.auth-visual>img { width:100%; height:100%; position:absolute; object-fit:cover; }.auth-visual-copy { position:absolute; top:37%; left:10%; right:7%; color:var(--foreground); }.auth-visual-copy>span { display:flex; align-items:center; gap:8px; font-weight:600; font-size:13px; margin-bottom:20px; }.auth-visual-copy h2 { font-size:29px; line-height:1.35; }.auth-visual-copy p { font-size:13px; margin-top:16px; }.visual-caption { position:absolute; bottom:32px; left:10%; font-size:11px; font-weight:600; }.auth-footer { padding:24px 7%; border-top:1px solid var(--border); font-size:11px; color:var(--muted-foreground); display:flex; justify-content:space-between; }.dark .auth-visual>img { opacity:.18; }
 .auth-forgot { justify-self:end; font-size:13px; color:var(--success); text-decoration:underline; text-underline-offset:3px; }
+
+/* ---------- Sélecteur de rôle à l'inscription ---------- */
+.role-picker { display:grid; gap:10px; }
+.role-picker-label { font-size:14px; font-weight:600; color:var(--foreground); margin:0; }
+.role-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.role-card {
+  position:relative; display:grid; gap:6px; padding:14px 14px 16px;
+  border:2px solid var(--border); border-radius:14px; background:var(--card);
+  color:var(--foreground); text-align:left; cursor:pointer;
+  transition:border-color .25s, background .25s, transform .3s var(--ease-spring), box-shadow .25s;
+}
+.role-card:hover { border-color:var(--success); background:color-mix(in oklch,var(--accent) 60%,var(--card)); }
+.role-card:active { transform:scale(.97); }
+.role-card.selected {
+  border-color:var(--success);
+  background:color-mix(in oklch,var(--accent) 80%,var(--card));
+  box-shadow:0 0 0 3px color-mix(in oklch,var(--success) 18%,transparent);
+}
+.role-card-icon {
+  display:grid; place-items:center; width:38px; height:38px; border-radius:10px;
+  background:var(--muted); color:var(--muted-foreground); margin-bottom:4px;
+  transition:background .25s, color .25s;
+}
+.role-card.selected .role-card-icon { background:var(--accent); color:var(--success); }
+.role-card-icon.creator { color:var(--warning); }
+.role-card.selected .role-card-icon.creator { color:var(--warning); background:color-mix(in oklch,var(--warning) 14%,var(--card)); }
+.role-card-title { font-size:13px; font-weight:700; line-height:1.2; }
+.role-card-desc { font-size:12px; color:var(--muted-foreground); line-height:1.5; }
+.role-card.selected .role-card-desc { color:var(--accent-foreground); }
+.role-card-check {
+  position:absolute; top:10px; right:10px;
+  display:grid; place-items:center; width:20px; height:20px; border-radius:50%;
+  background:var(--success); color:var(--primary-foreground);
+  animation:quick-in .35s var(--ease-spring) both;
+}
+
 .form-error { font-size:13px; line-height:1.6; color:var(--destructive); background:color-mix(in oklch,var(--destructive) 6%,var(--card)); padding:12px; border-radius:6px; }.form-success { font-size:13px; line-height:1.6; color:var(--success); background:var(--accent); padding:12px; border-radius:6px; }
 form .sort-select { width:100%; }.form-actions { display:flex; justify-content:flex-end; gap:12px; padding:16px 0 0; }.history-table { width:100%; border-collapse:collapse; }.history-table th { text-align:left; font-size:12px; color:var(--muted-foreground); font-weight:500; padding:14px 12px; border-bottom:1px solid var(--border); }.history-table td { padding:16px 12px; font-size:13px; border-bottom:1px solid var(--border); overflow-wrap:anywhere; }.history-table a { color:var(--success); }.report-reasons { padding:12px 16px; background:var(--muted); font-size:13px; line-height:1.7; color:var(--muted-foreground); }.report-actions { display:flex; gap:8px; padding:12px 16px; }.report-actions button { flex:1; }
 .settings-layout { max-width:640px; }.settings-section { padding:24px 0; border-bottom:1px solid var(--border); }.settings-section:first-child { padding-top:4px; }.settings-section h2 { display:flex; align-items:center; gap:10px; font-size:17px; margin-bottom:20px; }.settings-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:16px; }.settings-form { display:grid; gap:18px; }.settings-form input[readonly] { color:var(--muted-foreground); background:var(--muted); }.account-role { display:flex; align-items:center; gap:8px; color:var(--muted-foreground); font-size:13px; }

@@ -23,30 +23,42 @@ const creatorNav = [
   // US12 : page de progression (niveau, XP, badges)
   { to: '/progress' as const, label: fr.progressTitle, icon: TrendingUp },
 ];
+const viewerNav = [
+  { to: '/scroll' as const, label: fr.scroll, icon: Play },
+  // US11 : défis de bien-être quotidiens
+  { to: '/challenges' as const, label: fr.challenges, icon: Dumbbell },
+  // US12 : page de progression (niveau, XP, badges)
+  { to: '/progress' as const, label: fr.progressTitle, icon: TrendingUp },
+];
 const moderatorNav = [
   { to: '/moderation' as const, label: fr.pending, icon: ShieldCheck },
   { to: '/reports' as const, label: fr.reports, icon: Flag },
   { to: '/history' as const, label: fr.history, icon: History },
 ];
 
-function QuickMenu({ name, email, moderator }: { name: string; email: string; moderator: boolean }) {
+function QuickMenu({ name, email, moderator, isViewer }: { name: string; email: string; moderator: boolean; isViewer: boolean }) {
   const [open, setOpen] = useState(false);
   const { dark, setDark } = useTheme();
   const navigate = useNavigate(); const client = useQueryClient();
   async function logout() { setOpen(false); await client.cancelQueries(); client.clear(); await supabase.auth.signOut(); await navigate({ to: '/auth', replace: true }); }
   const go = (to: '/settings' | '/creator' | '/moderation') => { setOpen(false); void navigate({ to }); };
+  // Chip de rôle : Modérateur > Utilisateur > Créateur
+  const roleLabel = moderator ? fr.moderatorAccount : isViewer ? fr.viewerAccount : fr.account;
   return <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
     <PopoverPrimitive.Trigger asChild>
       <button type="button" className={`avatar-trigger ${open ? 'is-open' : ''}`} aria-label={fr.quickMenu}><span className="avatar">{initials(name)}</span></button>
     </PopoverPrimitive.Trigger>
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content side="bottom" align="start" sideOffset={10} collisionPadding={12} className="quick-menu">
-        <div className="quick-menu-head"><span className="avatar large">{initials(name)}</span><div><strong>{name}</strong><small>{email}</small><span className="role-chip">{moderator ? fr.moderatorAccount : fr.account}</span></div></div>
+        <div className="quick-menu-head"><span className="avatar large">{initials(name)}</span><div><strong>{name}</strong><small>{email}</small><span className="role-chip">{roleLabel}</span></div></div>
         <div className="quick-actions">
           {moderator
             ? <button type="button" className="quick-action" onClick={() => go('/moderation')}><ShieldCheck size={18}/><span>{fr.pending}</span></button>
             : <>
-              <Link to="/contents" search={{ nouveau: true }} className="quick-action" onClick={() => setOpen(false)}><Plus size={18}/><span>{fr.newContent}</span></Link>
+              {/* Lien "Nouveau contenu" masqué pour les viewers */}
+              {!isViewer && (
+                <Link to="/contents" search={{ nouveau: true }} className="quick-action" onClick={() => setOpen(false)}><Plus size={18}/><span>{fr.newContent}</span></Link>
+              )}
               <button type="button" className="quick-action" onClick={() => go('/creator')}><Bell size={18}/><span>{fr.notifications}</span></button>
             </>}
         </div>
@@ -58,12 +70,13 @@ function QuickMenu({ name, email, moderator }: { name: string; email: string; mo
   </PopoverPrimitive.Root>;
 }
 
-export function WorkspaceShell({ children, moderator, name, email }: { children: ReactNode; moderator: boolean; name: string; email: string }) {
+export function WorkspaceShell({ children, moderator, isViewer, name, email }: { children: ReactNode; moderator: boolean; isViewer: boolean; name: string; email: string }) {
   const path = useRouterState({ select: s => s.location.pathname });
   const [collapsed, setCollapsed] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
   useElasticScroll(mainRef);
-  const items = moderator ? moderatorNav : creatorNav;
+  // Sélection de la navigation selon le rôle
+  const items = moderator ? moderatorNav : isViewer ? viewerNav : creatorNav;
   const isActive = (to: string) => path === to || (path.startsWith('/content/') && to === (moderator ? '/moderation' : '/contents'));
   return <div className={`app-layout ${collapsed ? 'sidebar-collapsed' : ''}`}>
     <aside className="sidebar">
@@ -74,7 +87,7 @@ export function WorkspaceShell({ children, moderator, name, email }: { children:
     </aside>
     <div className="main-column">
       <header className="topbar">
-        <QuickMenu name={name} email={email} moderator={moderator}/>
+        <QuickMenu name={name} email={email} moderator={moderator} isViewer={isViewer}/>
         <span className="topbar-section">{moderator ? fr.moderation : fr.workspace}</span>
         <span className="mobile-brand"><Brand/></span>
       </header>

@@ -64,6 +64,15 @@ export const fr = {
   challengesEmpty: 'Revenez demain pour de nouveaux défis !',
   challengesBadgeTitle: 'Récompenses débloquées',
 
+  // ── Choix du rôle à l'inscription ────────────────────────────────────────
+  roleChoice: 'Quel est votre profil ?',
+  roleCreator: 'Mode Créateur',
+  roleCreatorDesc: 'Créez, publiez et gérez vos propres contenus.',
+  roleViewer: 'Utilisateur',
+  roleViewerDesc: 'Explorez et profitez des contenus de la communauté.',
+  viewerAccount: 'Utilisateur',
+
+
   // ── US12 : Progression ────────────────────────────────────────────────────
   progressTitle: 'Ma progression', progressLevel: 'Niveau', progressNextLevel: 'Prochain palier',
   progressPoints: 'points accumulés', progressBadges: 'Badges obtenus',
